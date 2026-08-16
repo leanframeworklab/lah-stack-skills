@@ -1,0 +1,22 @@
+{
+  "router_version": "4",
+  "canonical_source": "leanframeworklab/lah-stack-skills",
+  "canonical_subpath": "lah-repo-router",
+  "schema_version": "4",
+  "fingerprint_algorithm": "sha256(raw canonical JSON bytes)",
+  "mapping_fingerprint": "e93ef413f50f02244b71be01b405b09d8994657c3f931d41a193f12d8ecfd0a0",
+  "source_authority": "Git canonical source",
+  "execution_authority": "Hermes installed dry-run-route.sh",
+  "derived_installations": ["Hermes", "Codex"],
+  "semantic_artifacts": [
+    "SKILL.md",
+    "scripts/dry-run-route.sh",
+    "scripts/dry-run-route.cjs",
+    "references/repo_mappings.json",
+    "references/receipt-schema-v4.json",
+    "references/v4-adversarial-fixtures.json",
+    "templates/codex-SKILL.md"
+  ],
+  "installation_contract": "scripts/sync-installations.cjs",
+  "drift_validator": "scripts/validate-installation-drift.cjs"
+}
