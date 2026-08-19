@@ -280,6 +280,16 @@ Caveman levels by phase (loaded from `caveman` skill):
 
 ---
 
+## Campaign Snapshot Data Quality Authority
+
+When a campaign snapshot returns `data_quality.status=PASS`, Hermes MUST treat that payload as campaign fact authority and MUST NOT re-query DB, provider APIs, secrets, evidence directories, or source code merely to re-establish facts already present.
+
+If `status=FAIL`: return `BLOCKED_CANONICAL_DATA`. Do not automatically escalate into forensic exploration.
+
+If `status=PARTIAL`: the snapshot is usable but carries warnings. Hermes may use the data for decision inputs but must surface the warnings to the operator.
+
+---
+
 ## Linked References
 
 The following reference files live in `references/` under this skill's directory. Load them by name when the gate description tells you to, or when you need the specific pattern:
