@@ -13,7 +13,7 @@ A **gate** is a checkable step. The **gate-pass** is the condition that says it'
 
 ## Skills Branch Table
 
-These skills are available in the Hermes session — **load them at the right gate** when the trigger fires:
+These skills are available in the active session catalog — **load them at the right gate** when the trigger fires:
 
 | Branch | Skill | Gate | Trigger |
 |--------|-------|------|---------|
@@ -82,7 +82,9 @@ The plan includes:
 - **Tests** — how many, key assertions
 - **Continuity JSON** — template for the final record
 
-**Superpowers skills:** Cat `~/.hermes/plugins/superpowers/skills/<name>/SKILL.md` — not `skill_view`.
+**Runtime skill resolution contract:** The active session skill catalog is the discovery authority. Resolve each logical skill identifier through its current catalog entry, use that entry's exact `file:` reference, and expand aliases such as `r8` only through the current catalog root table. Never construct a path from a namespace (`superpowers:using-superpowers`), plugin name, plugin version, or assumed root such as `~/.codex/skills/<name>` or `~/.hermes/plugins/...`.
+
+Load requested skills independently. Record one result per skill. An optional failure is `OPTIONAL_SKILL_UNRESOLVED` and must not abort later valid loads. A required failure is `REQUIRED_SKILL_UNRESOLVED` and fails the workflow closed. If a catalog-declared file is absent, return `SKILL_CATALOG_PATH_STALE`; do not search the filesystem or silently select another agent's copy. The LAH skill repository remains canonical source authority, but never replaces the active session catalog for runtime discovery.
 
 ---
 
