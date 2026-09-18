@@ -1,0 +1,63 @@
+{
+  "mission": "CODEX_DEPWIRE_WORKFLOW_INTEGRATION_GROUNDTRUTH_PROBATION_P0_V1",
+  "technology_surfaces": [
+    "node:sqlite DatabaseSync",
+    "Express 5.2.x",
+    "Model Context Protocol TypeScript SDK"
+  ],
+  "canaries": [
+    {
+      "id": 1,
+      "technology": "node:sqlite DatabaseSync on Node.js 22.22.2",
+      "native_conclusion": "LAH Brain uses DatabaseSync in tests and database code; runtime is Node 22.22.2.",
+      "tool": "gt_search",
+      "query": "Version-sensitive compatibility and documentation status of node:sqlite DatabaseSync in Node.js 22.x/22.22.2.",
+      "source": null,
+      "source_relevance": 0,
+      "version_specificity": 0,
+      "new_information": 0,
+      "uncertainty_reduction": 0,
+      "actionability": 0,
+      "materially_useful": false,
+      "result": "No results found; compatibility remained unverified."
+    },
+    {
+      "id": 2,
+      "technology": "Express 5.2.x",
+      "native_conclusion": "LAH Brain declares express ^5.2.1 and imports Router from express across route modules.",
+      "tool": "gt_search",
+      "query": "Express 5.2.x async route error handling and Router behavior/API compatibility.",
+      "source": "https://expressjs.com/en/guide/migrating-5/",
+      "source_relevance": 2,
+      "version_specificity": 1,
+      "new_information": 2,
+      "uncertainty_reduction": 2,
+      "actionability": 2,
+      "materially_useful": true,
+      "result": "Official migration guidance confirms rejected promises and thrown errors in async handlers reach error middleware; it also identifies Express 5 route-pattern and router.param migration constraints. Exact 5.2.1 patch behavior was not isolated."
+    },
+    {
+      "id": 3,
+      "technology": "Model Context Protocol TypeScript SDK 1.27.x",
+      "native_conclusion": "Installed MCP stack includes @modelcontextprotocol/sdk 1.27.1; Depwire has an SDK dependency.",
+      "tool": "gt_resolve_library, gt_get_docs, gt_changelog",
+      "query": "MCP TypeScript SDK 1.27.x stdio transport/API compatibility constraints.",
+      "source": "https://modelcontextprotocol.io/llms.txt; https://github.com/modelcontextprotocol/typescript-sdk/releases",
+      "source_relevance": 1,
+      "version_specificity": 0,
+      "new_information": 1,
+      "uncertainty_reduction": 1,
+      "actionability": 1,
+      "materially_useful": false,
+      "result": "GroundTruth resolved the protocol and returned stdio guidance, but documentation was low quality and did not substantiate SDK 1.27.x; changelog query returned 1.30.0 content instead."
+    }
+  ],
+  "decision": {
+    "totals": [0, 9, 4],
+    "average": 4.33,
+    "useful_canaries": 1,
+    "status": "OPTIONAL_SPECIALIST",
+    "retained": true,
+    "mandatory": false
+  }
+}

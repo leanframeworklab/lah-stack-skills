@@ -28,7 +28,7 @@ function validator(source, hermes, codex) {
   return { status: result.status, value: JSON.parse(result.stdout) };
 }
 function main() {
-  assert.equal(hash(path.join(ROOT, 'references/repo_mappings.json')), 'e93ef413f50f02244b71be01b405b09d8994657c3f931d41a193f12d8ecfd0a0');
+  assert.equal(hash(path.join(ROOT, 'references/repo_mappings.json')), '186bf4814f80ca3e8225471131d82932bb64c2109df9a1f4be552f21402b268c');
   assert.equal(hash(path.join(CODEX, 'SKILL.md')), hash(path.join(ROOT, 'templates/codex-SKILL.md')));
   for (const mission of missions) {
     const source = semantic(route(path.join(ROOT, 'scripts/dry-run-route.cjs'), path.join(ROOT, 'references/repo_mappings.json'), mission));

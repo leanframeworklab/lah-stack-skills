@@ -113,7 +113,7 @@
       "repository_id": "hermes-agent",
       "roles": ["IMPLEMENTATION", "EXECUTION_RUNTIME", "CONTEXT"],
       "aliases": ["hermes-agent", "hermes", "Hermes dashboard", "agent framework", "dashboard provider"],
-      "strong_signals": ["Hermes dashboard", "Hermes provider configuration", "agent framework", "dashboard recovery", "observability hooks", "Hermes observability plugin"],
+      "strong_signals": ["Hermes dashboard", "Hermes provider configuration", "agent framework", "dashboard recovery", "observability hooks", "Hermes observability plugin", "Hermes core runtime", "Hermes ContextCompiler", "Hermes model_tools dispatch", "Hermes durable mission checkpoint", "Hermes turn context", "Hermes provider message assembly"],
       "positive_signals": ["Hermes", "dashboard", "agent framework", "provider configuration", "observability hooks"],
       "negative_signals": ["LAH Stack operational", "wordpress", "business assets", "specific LAH mission"],
       "exclusive_surfaces": ["hermes_cli", "agent", "plugins", "dashboard", "skills"],

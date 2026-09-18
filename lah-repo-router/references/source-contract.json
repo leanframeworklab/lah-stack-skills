@@ -4,7 +4,7 @@
   "canonical_subpath": "lah-repo-router",
   "schema_version": "4",
   "fingerprint_algorithm": "sha256(raw canonical JSON bytes)",
-  "mapping_fingerprint": "e93ef413f50f02244b71be01b405b09d8994657c3f931d41a193f12d8ecfd0a0",
+  "mapping_fingerprint": "186bf4814f80ca3e8225471131d82932bb64c2109df9a1f4be552f21402b268c",
   "source_authority": "Git canonical source",
   "execution_authority": "Hermes installed dry-run-route.sh",
   "derived_installations": ["Hermes", "Codex"],

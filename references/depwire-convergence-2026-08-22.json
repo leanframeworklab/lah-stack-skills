@@ -1,0 +1,22 @@
+{
+  "mission": "CODEX_DEPWIRE_WORKFLOW_INTEGRATION_GROUNDTRUTH_PROBATION_P0_V1",
+  "repo": "/home/deploy/lah-stack-repos/lah-brain",
+  "repo_sha": "608541f7888d14f1545e47ced92b00a9ead61e1b",
+  "nontrivial": {
+    "scenario": "hypothetical change to shared core symbol src/db.js::openDatabase",
+    "policy_decision": "MUST",
+    "depwire_invoked": true,
+    "direct_dependents": 81,
+    "transitive_dependents": 5,
+    "affected_files": 63,
+    "test_surfaces": ["database tests", "approval tests", "provider/outcome tests"],
+    "mutation": "NO"
+  },
+  "trivial": {
+    "scenario": "documentation-only change",
+    "policy_decision": "MUST_NOT",
+    "depwire_invoked": false,
+    "expected": "NO",
+    "mutation": "NO"
+  }
+}

@@ -9,6 +9,59 @@ Use this every time you execute a structured LAH Stack mission: new feature, sub
 
 A **gate** is a checkable step. The **gate-pass** is the condition that says it's done. Don't advance before the pass is green. If a gate-pass is fuzzy, the gate needs sharpening, not skipping.
 
+## Conditional Development Intelligence: Depwire and GroundTruth
+
+This policy is part of the canonical source skill. It does not create a second
+orchestration path and preserves:
+
+`RESOLVE → PLAN → EXECUTE → VERIFY → PERSIST → REPORT`
+
+### Depwire role
+
+Depwire 1.16.0 is `DEVELOPMENT_INTELLIGENCE` only. It may improve architecture
+understanding, dependency discovery, blast-radius estimation, change
+verification, and test-surface discovery. It is not repository, router,
+mutation, test, or business authority. Native source inspection and tests
+remain authoritative.
+
+Use native inspection first. Depwire is **MUST** before implementation for
+cross-file refactors, shared/core modules, API or database abstraction changes,
+dependency-injection or module-boundary changes, shared utilities with multiple
+consumers, exported symbol removal/rename, migrations affecting callers,
+multi-subsystem changes, explicit blast-radius requests, or unknown/incomplete
+blast radius. It is **SHOULD** for three or more likely production files,
+multiple test surfaces, many callers, unfamiliar architecture, directory
+boundary crossings, or materially non-local regression risk. It is **MUST NOT**
+for isolated typo/comment/documentation/formatting/constant/local one-line,
+non-code, or trivial test-only changes unless dependency information is
+explicitly required.
+
+Qualifying sequence:
+
+`native inspection → Depwire context/query → impact analysis → minimal plan → execute`
+
+After mutation, Depwire change verification may supplement targeted and
+regression tests; it never replaces them. If unavailable, continue with native
+inspection and tests, record the fallback, and do not silently pretend that
+graph evidence exists. Analyze trusted local checkouts only. Agent-generated
+URLs or arbitrary remote repository acquisition are rejected; governed Git
+mechanisms obtain trusted sources first.
+
+The executable policy and behavior tests are
+[`scripts/depwire-workflow-policy.cjs`](scripts/depwire-workflow-policy.cjs) and
+[`lah-repo-router/scripts/test-depwire-workflow-policy.cjs`](lah-repo-router/scripts/test-depwire-workflow-policy.cjs).
+Detailed rules and security/update-watch controls are in
+[`references/depwire-groundtruth-policy.md`](references/depwire-groundtruth-policy.md).
+
+### GroundTruth probation
+
+GroundTruth 7.5.0 remains optional and non-authoritative. Run exactly three
+bounded, real, version-sensitive canaries: establish native repository/package
+evidence first, query GroundTruth second, then score source relevance,
+version-specificity, new information, uncertainty reduction, and actionability
+(0–2 each). Apply the documented threshold mechanically; do not invoke it as a
+mandatory workflow dependency before the decision.
+
 ---
 
 ## Skills Branch Table

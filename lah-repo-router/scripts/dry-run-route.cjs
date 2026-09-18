@@ -25,7 +25,7 @@ const MUTATION_WORDS = [
 const READ_WORDS = ['audit', 'compare', 'consult', 'inspect', 'read', 'reference', 'review', 'analyser', 'analyze', 'lire', 'consulter'];
 const ROLE_CUES = {
   MEMORY: ['memory', 'operational memory', 'active operational memory', 'observation', 'observations', 'decision log', 'mémoire', 'memoire', 'context reconstruction', 'historical mission'],
-  EXECUTION_RUNTIME: ['runtime', 'provider', 'gateway', 'execution', 'exoclick', 'supervisor', 'telemetry', 'qdrant'],
+  EXECUTION_RUNTIME: ['runtime', 'provider', 'gateway', 'exoclick', 'supervisor', 'telemetry', 'qdrant'],
   GOVERNANCE: ['decision', 'threshold', 'kill', 'scale', 'bankroll', 'reconciliation', 'profit', 'exploration', 'approval', 'governance', 'checklist', 'economic'],
   SKILL_KNOWLEDGE: ['skill', 'workflow', 'agent instructions', 'knowledge', 'reference pattern', 'codex', 'reusable'],
   BUSINESS_ASSET: ['asset', 'creative', 'niche', 'offer registry', 'business registry', 'content draft', 'business offer'],
@@ -321,7 +321,8 @@ function routeMission(mission, mapping) {
       .filter((role) => ['IMPLEMENTATION', 'BUSINESS_ASSET', 'SKILL_KNOWLEDGE'].includes(role))
       .map((role) => scoreRepository(repo, mission, role)))
       .filter((candidate) => candidate.repo !== prefix.repo && (candidate.positive.length || candidate.strong.length));
-    if (prefixRepo && nonPrefixPositive.length) {
+    const hermesCoreCurrent = nonPrefixPositive.some((candidate) => candidate.repo === 'hermes-agent' && candidate.strong.length);
+    if (prefixRepo && nonPrefixPositive.length && !hermesCoreCurrent) {
       addConflict(receipt, 'HISTORICAL_PREFIX_VS_CURRENT_SIGNALS', { historical_target: prefix.repo, current_candidates: [...new Set(nonPrefixPositive.map((candidate) => candidate.repo))] });
       receipt.decision = 'AMBIGUOUS';
       receipt.reason_code = 'HISTORICAL_SIGNAL_CONFLICT';
@@ -357,6 +358,7 @@ function routeMission(mission, mapping) {
   if (requestedRoles.length === 1 && ['MEMORY', 'GOVERNANCE', 'SKILL_KNOWLEDGE', 'BUSINESS_ASSET', 'CONTEXT'].includes(requestedRoles[0])) receipt.primary_role = requestedRoles[0];
   else if (resolvedRoles.length === 1) receipt.primary_role = resolvedRoles[0];
   if (resolvedRoles.length > 1 && implementation && requestedRoles.length === 1 && requestedRoles[0] === 'EXECUTION_RUNTIME') receipt.primary_role = 'IMPLEMENTATION';
+  if (isMutation && implementation && requestedRoles.length > 0 && requestedRoles.every((role) => ['EXECUTION_RUNTIME', 'CONTEXT'].includes(role))) receipt.primary_role = 'IMPLEMENTATION';
   selectCompatibilityAuthority(receipt);
   if (receipt.decision === null) {
     if (!isMutation && !readOnlyRequested(mission) && !resolvedRoles.length) {
